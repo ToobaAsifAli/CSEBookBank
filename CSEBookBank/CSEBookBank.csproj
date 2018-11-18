@@ -324,6 +324,9 @@
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Librarian\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial1.cshtml" />
+    <Content Include="Views\Librarian\ViewBooks.cshtml" />
+    <Content Include="Views\Librarian\AddBook.cshtml" />
+    <Content Include="Views\Librarian\RemoveBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

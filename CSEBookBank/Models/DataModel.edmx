@@ -5,37 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="CSEBookBankDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CSEBookBankDb.dbo.Book' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Book">
           <Key>
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookID" />
           </Key>
-          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Author" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IssuedTo" Type="varchar" MaxLength="50" />
+          <Property Name="Edition" Type="int" Nullable="false" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IssuedTo" Type="nvarchar" MaxLength="50" />
           <Property Name="IssuedDate" Type="date" />
           <Property Name="ReturnDate" Type="date" />
+          <Property Name="DueDate" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CSEBookBankDb.dbo.Librarian' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Librarian">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="Password" />
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CSEBookBankDb.dbo.student' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="student">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="Password" />
-            <PropertyRef Name="StudentName" />
-            <PropertyRef Name="RegistrationNo" />
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -44,30 +38,9 @@ warning 6002: The table/view 'CSEBookBankDb.dbo.student' does not have a primary
           <Property Name="Fine" Type="int" />
         </EntityType>
         <EntityContainer Name="CSEBookBankDbModelStoreContainer">
-          <EntitySet Name="Book" EntityType="Self.Book" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Book].[Title] AS [Title], 
-    [Book].[Author] AS [Author], 
-    [Book].[IssuedTo] AS [IssuedTo], 
-    [Book].[IssuedDate] AS [IssuedDate], 
-    [Book].[ReturnDate] AS [ReturnDate]
-    FROM [dbo].[Book] AS [Book]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Librarian" EntityType="Self.Librarian" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Librarian].[UserName] AS [UserName], 
-    [Librarian].[Password] AS [Password]
-    FROM [dbo].[Librarian] AS [Librarian]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="student" EntityType="Self.student" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [student].[UserName] AS [UserName], 
-    [student].[Password] AS [Password], 
-    [student].[StudentName] AS [StudentName], 
-    [student].[RegistrationNo] AS [RegistrationNo], 
-    [student].[Fine] AS [Fine]
-    FROM [dbo].[student] AS [student]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Librarian" EntityType="Self.Librarian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -76,19 +49,22 @@ warning 6002: The table/view 'CSEBookBankDb.dbo.student' does not have a primary
       <Schema Namespace="CSEBookBankDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Book">
           <Key>
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookID" />
           </Key>
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IssuedTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Edition" Type="Int32" Nullable="false" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssuedTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IssuedDate" Type="DateTime" Precision="0" />
           <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Librarian">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="Password" />
           </Key>
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -96,9 +72,6 @@ warning 6002: The table/view 'CSEBookBankDb.dbo.student' does not have a primary
         <EntityType Name="student">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="Password" />
-            <PropertyRef Name="StudentName" />
-            <PropertyRef Name="RegistrationNo" />
           </Key>
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -122,9 +95,14 @@ warning 6002: The table/view 'CSEBookBankDb.dbo.student' does not have a primary
               <MappingFragment StoreEntitySet="Book">
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IssuedTo" ColumnName="IssuedTo" />
                 <ScalarProperty Name="IssuedDate" ColumnName="IssuedDate" />
                 <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

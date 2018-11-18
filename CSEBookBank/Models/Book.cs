@@ -16,8 +16,13 @@ namespace CSEBookBank.Models
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public int Edition { get; set; }
+        public int BookID { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
         public string IssuedTo { get; set; }
         public Nullable<System.DateTime> IssuedDate { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
     }
 }

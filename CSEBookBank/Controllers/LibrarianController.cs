@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,76 +18,52 @@ namespace CSEBookBank.Controllers
             return View(stds.ToList());
         }
 
-        // GET: Librarian/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ViewBooks()
+        {
+            var books = db.Books;
+            return View(books.ToList());
+        }
+
+        public ActionResult AddBook()
         {
             return View();
         }
 
-        // GET: Librarian/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Librarian/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult AddBook([Bind(Include = "Title,Author,Edition,BookID,ImagePath,Description")] Book book)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                db.Books.Add(book);
+                db.SaveChanges();
+                return RedirectToAction("ViewBooks");
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Librarian/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
         }
 
-        // POST: Librarian/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult RemoveBook(int? id)
         {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Book book = db.Books.Find(id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(book);
         }
 
-        // GET: Librarian/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost, ActionName("RemoveBook")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookRemoved(int id)
         {
-            return View();
-        }
-
-        // POST: Librarian/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Book book = db.Books.Find(id);
+            db.Books.Remove(book);
+            db.SaveChanges();
+            return RedirectToAction("ViewBooks");
         }
     }
 }

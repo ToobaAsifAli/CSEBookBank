@@ -7,7 +7,7 @@
       <Diagram DiagramId="50f3a8d0223d49abbd9d724b3074715c" Name="Diagram1">
         <EntityTypeShape EntityType="CSEBookBankDbModel.Book" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CSEBookBankDbModel.Librarian" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSEBookBankDbModel.student" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSEBookBankDbModel.student" Width="1.5" PointX="2.875" PointY="2.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

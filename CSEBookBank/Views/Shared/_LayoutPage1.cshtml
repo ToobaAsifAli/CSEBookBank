@@ -23,15 +23,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Registered Students", "RegisteredStudents", "Home")</li>
+                    <li>@Html.ActionLink("Registered Students", "Index", "Librarian")</li>
                     <li>@Html.ActionLink("View Books", "ViewBooks", "Home")</li>
                     <li>@Html.ActionLink("Issued Books", "IssuedBooks", "Home")</li>
                     <li>@Html.ActionLink("Add Book", "AddBook", "Home")</li>
                     <li>@Html.ActionLink("Remove Book", "RemoveBook", "Home")</li>
                     <li>@Html.ActionLink("Requests", "Requests", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial1")
 
                 <form class="navbar-form navbar-right">
                     <div class="form-group">

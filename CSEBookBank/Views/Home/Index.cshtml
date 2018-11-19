@@ -1,26 +1,41 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<CSEBookBank.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<center><h2> CSE Library </h2></center>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="~/images/1.jpg" class="img-responsive" width="40%" height="40%">
-                <p> Title: Advanced Engineering Mathematics </p>
-                <p> Author: Erwin Kreyszig </p>
-                <p> Edition: 9 </p>
-                <p> <input type="button" class="btn btn-default" value="Issue Book" onclick="location.href = 'Alert Return.html';" style="height:40px"> </p>
+<center><h2>Available books</h2></center>
 
-            </div>
-            <div class="col-sm-4">
-                <img src="~/images/visual.jpg" class="img-responsive" width="40%" height="40%">
-                <p> Title: Visual C++ Programming </p>
-                <p> Author: Mc Carley </p>
-                <p> Edition: 2 </p>
-                <p> <input type="button" class="btn btn-default" value="Issue Book" onclick="location.href = 'Alert Return.html';" style="height:40px"> </p>
-            </div>
-        </div>
-    </div>
-</body>    
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Edition)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Edition)
+        </td>
+        <td>
+            @Html.ActionLink("Issue Book", "IssueBook", new { id=item.BookID })
+        </td>
+    </tr>
+}
+
+</table>

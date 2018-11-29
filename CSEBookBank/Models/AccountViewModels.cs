@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using CompareAttribute = System.ComponentModel.DataAnnotations.CompareAttribute;
 
 namespace CSEBookBank.Models
 {
@@ -64,10 +66,21 @@ namespace CSEBookBank.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "This Field is required")]
+        [Remote("doesUserNameExist", "System_User", HttpMethod = "POST", ErrorMessage = "User name already exists. Please enter a different user name.")]
+        public string UserName { get; set; }
+
+
+        [Required(ErrorMessage ="This Field is required")]
+        public string RegistrationNumber { get; set; }
+
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

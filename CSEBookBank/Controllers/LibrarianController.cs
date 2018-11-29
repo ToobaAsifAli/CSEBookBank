@@ -10,7 +10,7 @@ namespace CSEBookBank.Controllers
 {
     public class LibrarianController : Controller
     {
-        private CSEBookBankDbEntities db = new CSEBookBankDbEntities();
+        private CSEBokkBankDbEntities db = new CSEBokkBankDbEntities();
         // GET: Librarian
         public ActionResult Index()
         {

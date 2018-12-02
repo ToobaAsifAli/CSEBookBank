@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace CSEBookBank.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private CSEBookBankDbEntities db = new CSEBookBankDbEntities();

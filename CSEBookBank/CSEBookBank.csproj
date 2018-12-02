@@ -199,31 +199,43 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>Data Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>Data Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>Data Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Data Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Book.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Data Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.Context.cs">
+    <Compile Include="Models\Data Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
+      <DependentUpon>Data Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.cs">
+    <Compile Include="Models\Data Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Data Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataModel.Designer.cs">
+    <Compile Include="Models\Data Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>Data Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Librarian.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Data Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\student.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Data Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -253,27 +265,27 @@
     <Content Include="images\math.jpg" />
     <Content Include="images\S3Pic.png" />
     <Content Include="images\visual.jpg" />
-    <Content Include="Models\DataModel.Context.tt">
+    <Content Include="Models\Data Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
+      <DependentUpon>Data Model.edmx</DependentUpon>
+      <LastGenOutput>Data Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DataModel.tt">
+    <Content Include="Models\Data Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
+      <DependentUpon>Data Model.edmx</DependentUpon>
+      <LastGenOutput>Data Model.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\DataModel.edmx">
+    <EntityDeploy Include="Models\Data Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>Data Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
+    <Content Include="Models\Data Model.edmx.diagram">
+      <DependentUpon>Data Model.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

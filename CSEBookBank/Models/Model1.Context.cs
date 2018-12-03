@@ -13,10 +13,10 @@ namespace CSEBookBank.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CSEBokkBankDbEntities : DbContext
+    public partial class CSEBookBankDbEntities : DbContext
     {
-        public CSEBokkBankDbEntities()
-            : base("name=CSEBokkBankDbEntities")
+        public CSEBookBankDbEntities()
+            : base("name=CSEBookBankDbEntities")
         {
         }
     

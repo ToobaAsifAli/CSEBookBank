@@ -9,7 +9,7 @@ namespace CSEBookBank.Controllers
 {
     public class HomeController : Controller
     {
-        private CSEBokkBankDbEntities db = new CSEBokkBankDbEntities();
+        private CSEBookBankDbEntities db = new CSEBookBankDbEntities();
         public ActionResult Index()
         {
             var books = db.Books;

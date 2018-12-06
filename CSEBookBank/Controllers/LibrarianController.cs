@@ -12,24 +12,29 @@ namespace CSEBookBank.Controllers
     {
         private CSEBookBankDbEntities db = new CSEBookBankDbEntities();
         // GET: Librarian
-        [Authorize]
         public ActionResult Index()
         {
             var stds = db.students;
             return View(stds.ToList());
         }
-        [Authorize]
+       
+
+
         public ActionResult ViewBooks()
         {
             var books = db.Books;
             return View(books.ToList());
         }
-        [Authorize]
+
         public ActionResult AddBook()
         {
             return View();
         }
-        [Authorize]
+
+
+
+
+
         [HttpPost]
         public ActionResult AddBook([Bind(Include = "Title,Author,Edition,BookID,ImagePath,Description")] Book book)
         {
@@ -41,7 +46,7 @@ namespace CSEBookBank.Controllers
             }
             return View();
         }
-        [Authorize]
+
         public ActionResult RemoveBook(int? id)
         {
 
@@ -56,7 +61,7 @@ namespace CSEBookBank.Controllers
             }
             return View(book);
         }
-        [Authorize]
+
         [HttpPost, ActionName("RemoveBook")]
         [ValidateAntiForgeryToken]
         public ActionResult BookRemoved(int id)
@@ -65,6 +70,12 @@ namespace CSEBookBank.Controllers
             db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("ViewBooks");
+        }
+        
+        public ActionResult Requests()
+        {
+            var rqst = db.Requests;
+            return View(rqst.ToList());
         }
     }
 }

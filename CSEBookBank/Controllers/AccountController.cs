@@ -151,7 +151,7 @@ namespace CSEBookBank.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name =model.Name,RegistrationNumber=model.RegistrationNumber };
+                var user = new ApplicationUser { UserName = model.RegistrationNumber, Email = model.Email,Name =model.Name,RegistrationNumber=model.RegistrationNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -170,6 +170,7 @@ namespace CSEBookBank.Controllers
                     std.RegistrationNo = model.RegistrationNumber;
                     db.students.Add(std);
                     db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

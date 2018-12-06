@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSEBookBank.Models
+namespace CSEBookBank
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +24,5 @@ namespace CSEBookBank.Models
         public Nullable<System.DateTime> IssuedDate { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
-        public Nullable<bool> Status { get; set; }
     }
 }

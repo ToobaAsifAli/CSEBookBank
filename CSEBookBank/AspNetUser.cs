@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSEBookBank.Models
+namespace CSEBookBank
 {
     using System;
     using System.Collections.Generic;

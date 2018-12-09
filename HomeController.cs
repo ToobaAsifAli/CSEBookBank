@@ -13,10 +13,19 @@ namespace CSEBookBank.Controllers
     public class HomeController : Controller
     {
         private CSEBookBankDbEntities db = new CSEBookBankDbEntities();
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            List<Book> list = new List<Book>();
             var books = db.Books;
-            return View(books.ToList());
+            foreach (Book b in books)
+            {
+                if (b.IssuedTo == null)
+                {
+                    list.Add(b);
+                }
+            }
+            return View(list);
         }
 
         public ActionResult IssueBook(int? id)
@@ -44,8 +53,40 @@ namespace CSEBookBank.Controllers
             b = db.Books.Find(id);
             String title = b.Title;
             Request Rqst = new Request();
-            Rqst.rqst= UsrName + " Wants to issue " + title + " " + id;
-            Rqst.BookId = b.BookID;
+            Rqst.RqstMessage = UsrName + " Wants to issue " + title + " " + id;
+            Rqst.BookID = b.BookID;
+            Rqst.UserName = UsrName;
+            db.Requests.Add(Rqst);
+            db.SaveChanges();
+            return RedirectToAction("index");
+
+        }
+
+        public ActionResult ReturnBook(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Book book = db.Books.Find(id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(book);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReturnBook(int id)
+        {
+            string UsrName = User.Identity.GetUserName();
+            Book b = new Book();
+            b = db.Books.Find(id);
+            String title = b.Title;
+            Request Rqst = new Request();
+            Rqst.RqstMessage = UsrName + " Wants to return " + title + " " + id;
+            Rqst.BookID = b.BookID;
             Rqst.UserName = UsrName;
             db.Requests.Add(Rqst);
             db.SaveChanges();
@@ -70,7 +111,15 @@ namespace CSEBookBank.Controllers
 
         public ActionResult History()
         {
-            return View();
+            List<History> list = new List<History>();
+            foreach (History h in db.Histories)
+            {
+                if (h.StudentName == User.Identity.GetUserName())
+                {
+                    list.Add(h);
+                }
+            }
+            return View(list);
         }
         public ActionResult Notifications()
         {
@@ -85,17 +134,9 @@ namespace CSEBookBank.Controllers
             }
             return View(list);
         }
-        [ValidateInput(false)]
-        public async ActionResult Search(string text)
+        public ActionResult Search(string SearchString)
         {
-            var book = from b in db.Books select b;
-
-            if (!String.IsNullOrEmpty(text))
-            {
-                book = book.Where(s => s.Title.Contains(text));
-            }
-
-            return View(book);
+            return View(db.Books.Where(x => x.Title.StartsWith(SearchString)).ToList());
         }
     }
 }

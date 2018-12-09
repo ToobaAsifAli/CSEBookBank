@@ -1,5 +1,6 @@
 ﻿using CSEBookBank.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +20,19 @@ namespace CSEBookBank.Controllers
             var stds = db.students;
             return View(stds.ToList());
         }
-        //public ActionResult Index()
-        //{
-        //    using (CSEBookBankDbEntities db = new CSEBookBankDbEntities())
-        //    {
-        //        return View(db.AspNetUsers.ToList());
-        //    }
-        //    //    var stds = db.students;
-        //    //return View(stds.ToList());
-        //}
-
 
         public ActionResult ViewBooks()
         {
+            List<Book> list = new List<Book>();
             var books = db.Books;
-            return View(books.ToList());
+            foreach (Book b in books)
+            {
+                if (b.IssuedTo == null)
+                {
+                    list.Add(b);
+                }
+            }
+            return View(list);
         }
 
         public ActionResult AddBook()
@@ -96,13 +95,35 @@ namespace CSEBookBank.Controllers
             {
                 return HttpNotFound();
             }
-            book.IssuedTo = rqst.UserName;
-            DateTime currentTime = DateTime.Now;
-            book.IssuedDate = currentTime;
-            book.DueDate = currentTime.AddDays(1);
+            if (book.IssuedTo == null)
+            {
+                book.IssuedTo = rqst.UserName;
+                DateTime currentTime = DateTime.Now;
+                book.IssuedDate = currentTime;
+                book.DueDate = currentTime.AddDays(1);
+            }
+
+            else
+            {
+                History history = new History();
+                history.BookID = book.BookID;
+                history.StudentName = book.IssuedTo;
+                history.Title = book.Title;
+                history.Auhor = book.Author;
+                history.IssuedDate = book.IssuedDate?? DateTime.Now;
+                history.DueDate = book.DueDate?? DateTime.Now;
+                history.ReturnDate = DateTime.Now;
+                history.Edition = book.Edition;
+                db.Histories.Add(history);
+                db.SaveChanges();
+                book.IssuedTo = null;
+                book.IssuedDate = null;
+                book.DueDate = null;
+            }
+            
             db.Requests.Remove(rqst);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Requests");
         }
         public ActionResult Deny(int? id)
         {
@@ -134,6 +155,13 @@ namespace CSEBookBank.Controllers
             return View(list);
         }
 
+        public ActionResult RegisteredStudentBooks(string id)
+        {
+            List<Book> list = new List<Book>();
+            var book = db.Books.Where(x => x.IssuedTo.Contains(id));
+            return View(book.ToList());
+        }
+
         public ActionResult Reminder(int? id)
         {
             if (id == null)
@@ -146,41 +174,19 @@ namespace CSEBookBank.Controllers
                 return HttpNotFound();
             }
             Notification not = new Notification();
-            not.BookId = book.BookID;
+            not.BookID = book.BookID;
             not.UserName = book.IssuedTo;
             not.NotMessage = "Dear Student, You have issued the " + book.Title + " book on " + book.IssuedDate + ". And the date of returning this book is approaching. Kindly return this book before the due date. The due date is " + book.DueDate;
             db.Notifications.Add(not);
             db.SaveChanges();
-            
+
             return RedirectToAction("IssuedBooks");
-            
         }
-        [ValidateInput(false)]
-        public async ActionResult Search(string text)
+        
+
+        public ActionResult Search(string SearchString)
         {
-            var book = from b in db.Books select b;
-            
-            if (!String.IsNullOrEmpty(text))
-            {
-                book = book.Where(s => s.Title.Contains(text));
-            }
-
-            return View(book);
-        }
-        [ValidateInput(false)]
-        public async ActionResult Search(string text)
-        {
-            var std = from s in db.students select s;
-
-            if (!String.IsNullOrEmpty(text))
-            {
-                std = std.Where(s => s.Title.Contains(text));
-            }
-
-            return View(std);
-        }
-
-    }
+            return View(db.Books.Where(x => x.Title.StartsWith(SearchString)).ToList());
         }
     }
 }

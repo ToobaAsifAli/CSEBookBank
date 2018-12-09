@@ -151,7 +151,7 @@ namespace CSEBookBank.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name =model.Name,RegistrationNumber=model.RegistrationNumber };
+                var user = new ApplicationUser { UserName = model.RegistrationNumber, Email = model.Email,Name =model.Name,RegistrationNumber=model.RegistrationNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -162,8 +162,27 @@ namespace CSEBookBank.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                   
+                    /* CSEBookBankDbEntities db = new CSEBookBankDbEntities();
+                    student std = new student();
+                    std.UserName = model.Email;
+                    std.Password = model.Password;
+                    std.StudentName = model.Name;
+                    std.RegistrationNo = model.RegistrationNumber;
+                    db.students.Add(std);
 
-                    return RedirectToAction("Index", "Home");
+                    db.SaveChanges(); */
+
+                    CSEBookBankDbEntities db = new CSEBookBankDbEntities();
+                    Librarian lib = new Librarian();
+                    lib.UserName = model.Name;
+                    lib.Password = model.Password;
+                    db.Librarians.Add(lib);
+
+                    await UserManager.AddToRoleAsync(user.Id, "Librarian");
+                    
+
+                    return RedirectToAction("Index", "librarian");
                 }
                 AddErrors(result);
             }

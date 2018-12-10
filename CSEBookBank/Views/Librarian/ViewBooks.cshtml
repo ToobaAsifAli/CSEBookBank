@@ -7,46 +7,42 @@
 
 <h2>Available Books</h2>
 
-<p>
-    @Html.ActionLink("Add Book", "AddBook")
-</p>
-<table class="table">
-    <tr>
-        <th>
+
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Edition)
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-            Remove
-        </th>
-    </tr>
+        </dt>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Edition)
-        </td>
-        <td>
-           
-        </td>
-        <td>
-            @Html.ActionLink("Remove", "RemoveBook", new { id=item.BookID })
-        </td>
-    </tr>
-}
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
 
-</table>
+        <dt>
+            
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.ImagePath)" width="250" height="250" />
+        </dd>
+
+    
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
